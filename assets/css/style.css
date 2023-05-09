@@ -1,0 +1,73 @@
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #F3F3F7;
+}
+
+.fm-spectral {
+    font-family: 'Spectral', serif;
+}
+.fm-inter {
+    font-family: 'Inter', sans-serif;
+}
+
+.header {
+    background-color: #FBFAFF;
+}
+.navbar {
+    background-color: #D24061;
+}
+
+.navbar a {
+    transition: 0.5s;
+}
+.navbar a:hover {
+    letter-spacing: 1px;
+}
+
+.login-button {
+    transition: 0.5s;
+}
+.login-button:hover {
+    color: #279b48 !important;
+}
+
+.background-corousel {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.search-produk {
+    /* overflow: hidden; */
+    height: 35px;
+}
+
+.search-produk input {
+    height: 35px;
+    border: transparent;
+    /* border-radius: 17.5px 0px 0px 17.5px; */
+}
+.search-produk input:focus {
+    border: transparent;
+    outline: none;
+}
+.search-produk input:hover {
+    caret-color: black;
+}
+
+.search-produk button {
+    height: 35px;
+    border-radius: 0px 17.5px 17.5px 0px;
+    border: transparent;
+    background-color: #40D269;
+    transition: 0.5s;
+}
+
+.search-produk button:hover {
+    background-color: #35a154;
+}
+
+.fs-7 {
+    font-size: 15px;
+}
