@@ -25,7 +25,17 @@ class Bibit extends CI_Controller {
 	}
 	public function index()
 	{
-		$data['bibits'] = $this->M_admin->select_all('bibit')->result_array();
+		$get = $this->input->get();
+
+		if($get != null) {
+			if($get['search'] != null || $get['search'] != '') {
+				$data['bibits'] = $this->M_admin->select_query("SELECT * FROM bibit WHERE produsen LIKE '%".$get['search']."%'")->result_array();
+			} else {
+				$data['bibits'] = $this->M_admin->select_all('bibit')->result_array();
+			}
+		} else {
+			$data['bibits'] = $this->M_admin->select_all('bibit')->result_array();
+		}
 
         $this->load->view('layout/header');
 		$this->load->view('bibit', $data);

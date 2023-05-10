@@ -25,7 +25,17 @@ class Pupuk extends CI_Controller {
 	}
 	public function index()
 	{
-		$data['pupuks'] = $this->M_admin->select_all('pupuk')->result_array();
+		$get = $this->input->get();
+
+		if($get != null) {
+			if($get['search'] != null || $get['search'] != '') {
+				$data['pupuks'] = $this->M_admin->select_query("SELECT * FROM pupuk WHERE nama LIKE '%".$get['search']."%'")->result_array();
+			} else {
+				$data['pupuks'] = $this->M_admin->select_all('pupuk')->result_array();
+			}
+		} else {
+			$data['pupuks'] = $this->M_admin->select_all('pupuk')->result_array();
+		}
 
         $this->load->view('layout/header');
 		$this->load->view('pupuk', $data);

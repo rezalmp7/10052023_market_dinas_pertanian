@@ -4,15 +4,17 @@
             <div class="col-12 m-0 p-5">
                 <div class="col-12 m-0 p-5">
                     <div class="col-12 m-0 mt-5 p-0 search-produk">
-                        <div class="col-12 m-0 p-0 row bg-white rounded-pill">
-                            <div class="col m-0 p-0 ps-3">
-                                <input class="col-12" type="text" placeholder="Search..." name="search" />
+                        <form method="GET" action="<?php echo base_url(); ?>pupuk">
+                            <div class="col-12 m-0 p-0 row bg-white rounded-pill">
+                                <div class="col m-0 p-0 ps-3">
+                                    <input class="col-12" type="text" placeholder="Search..." name="search" value="<?php echo isset($_GET['search']) ? $_GET['search'] : ""; ?>"  />
+                                </div>
+                                <div class="col-auto m-0 p-0">
+                                    <button class="px-5" type="submit"><span class="iconify fs-3"
+                                            data-icon="material-symbols:search-rounded"></span></button>
+                                </div>
                             </div>
-                            <div class="col-auto m-0 p-0">
-                                <button class="px-5" type="submit"><span class="iconify fs-3"
-                                        data-icon="material-symbols:search-rounded"></span></button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                     <div class="col-12 m-0 mt-5 p-0">
                         <?php
