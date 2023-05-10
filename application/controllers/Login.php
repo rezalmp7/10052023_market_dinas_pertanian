@@ -44,7 +44,6 @@ class Login extends CI_Controller {
 				'password' => $md_pass,
 			);
 			$cek_login = $this->M_admin->select_where('user', $where)->num_rows();
-			echo $cek_login;
 			if ($cek_login != null) {
 				$data_login = $this->M_admin->select_where('user', $where)->result_array();
 				foreach($data_login as $a)
