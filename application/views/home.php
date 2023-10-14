@@ -53,8 +53,8 @@
                     </button>
                 </div>
             </div>
-            <div class="col-12 m-0 p-5">
-                <div class="col-12 m-0 p-5">
+             <div class="col-12 m-0 p-5">
+                <!--<div class="col-12 m-0 p-5">
                     <h3 class="fw-bold fs-4">Bibit Kelapa Sawit</h3>
                     <div class="col-12 m-0 mt-5 p-0">
                         <?php
@@ -135,7 +135,36 @@
                         }
                         ?>
                     </div>
+                </div> -->
+                <div class="col-6">
+                    <canvas class="col-4" id="myChart"></canvas>
                 </div>
             </div>
         </div>
         <!-- END CONTENT -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+            labels: <?php echo json_encode($nama_transaksi); ?>,
+            datasets: [{
+                label: '# of Votes',
+                data: <?php echo json_encode($qty_transaksi); ?>,
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.7
+            }]
+            },
+            options: {
+            scales: {
+                y: {
+                beginAtZero: true
+                }
+            }
+            }
+        });
+        </script>

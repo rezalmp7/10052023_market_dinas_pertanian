@@ -43,6 +43,6 @@ class Register extends CI_Controller {
 
 		$this->M_admin->insert_data('user', $data);
 
-		redirect(base_url('admin/login'));
+		redirect(base_url('login'));
 	}
 }
