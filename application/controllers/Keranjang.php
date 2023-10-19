@@ -29,6 +29,7 @@ class Keranjang extends CI_Controller {
         // echo "<pre>";
         // print_r(count($this->cart->contents()));
         
+        $keranjang_save = [];
         if($this->session->userdata("id") != null) {
             if(count($this->cart->contents()) > 0) {
                 foreach ($this->cart->contents() as $key => $value) {
@@ -59,8 +60,6 @@ class Keranjang extends CI_Controller {
                 }
             }
             $keranjang_db = $this->M_admin->select_where('keranjang', array('id_user' => $this->session->userdata('id')))->result_array();
-
-            $keranjang_save = [];
 
             foreach ($keranjang_db as $key => $value) {
                 if($value['type'] == 'bibit') {

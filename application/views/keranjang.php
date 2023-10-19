@@ -49,7 +49,7 @@
                                             <tr>
                                                 <td><b class="">Tanggal Pengambilan</b></td>
                                                 <td class="text-dark" id="totalBelanja">
-                                                    <input type="date" class="form-control" name="tgl_pengambilan">
+                                                    <input type="text" class="form-control" name="tgl_pengambilan" readonly="true" required>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -72,6 +72,10 @@
         </div>
         <script>
             total_all();
+            const elem = document.querySelector('input[name="tgl_pengambilan"]');
+            const datepicker = new Datepicker(elem, {
+                autohide: true
+            }); 
             function total_all() {
                 let namaPerItem = document.getElementsByClassName("namaPerItem");
                 for (let index = 0; index < namaPerItem.length; index++) {

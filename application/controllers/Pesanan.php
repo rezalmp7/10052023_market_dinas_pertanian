@@ -33,47 +33,51 @@ class Pesanan extends CI_Controller {
 		$this->load->view('layout/footer');
 	}
     public function store() {
-        $post = $this->input->post();
-        $kode_pesanan = time();
+        if($this->session->userdata("id") != null) {
+            $post = $this->input->post();
+            $kode_pesanan = time();
 
-        $id_user = $this->session->userdata('id');
+            $id_user = $this->session->userdata('id');
 
-        $keranjang = $this->M_admin->select_where('keranjang', array('id_user' => $id_user))->result_array();
+            $keranjang = $this->M_admin->select_where('keranjang', array('id_user' => $id_user))->result_array();
 
-        $total = 0;
+            $total = 0;
 
-        foreach ($post['id'] as $key => $value) {
-            $total += $post['harga'][$key] * $post['qty'][$key];
-        }
+            foreach ($post['id'] as $key => $value) {
+                $total += $post['harga'][$key] * $post['qty'][$key];
+            }
 
-        $data_transaksi = array(
-            'kode_pesanan' => $kode_pesanan,
-            'id_user' => $id_user,
-            'tgl_pengambilan' => $post['tgl_pengambilan'],
-            'status' => 1,
-            'total' => $total
-        );
-
-        $this->M_admin->insert_data('transaksi', $data_transaksi);
-        $transaksi = $this->M_admin->select_where('transaksi', array('kode_pesanan' => $kode_pesanan))->row_array();
-
-        $pesanan = [];
-        foreach ($post['id'] as $key => $value) {
-            $keranjang = $this->M_admin->select_where('keranjang', array('id' => $post['id'][$key]))->row_array();
-            $data = array(
-                'id_transaksi' => $transaksi['id'],
-                'id_produk' => $keranjang['id_produk'],
-                'type' => $keranjang['type'],
-                'qty' => $post['qty'][$key],
-                'harga' => $post['harga'][$key],
+            $data_transaksi = array(
+                'kode_pesanan' => $kode_pesanan,
+                'id_user' => $id_user,
+                'tgl_pengambilan' => date("Ymd", strtotime($post['tgl_pengambilan'])),
+                'status' => 1,
+                'total' => $total
             );
 
-            $this->M_admin->insert_data('pesanan', $data);
+            $this->M_admin->insert_data('transaksi', $data_transaksi);
+            $transaksi = $this->M_admin->select_where('transaksi', array('kode_pesanan' => $kode_pesanan))->row_array();
+
+            $pesanan = [];
+            foreach ($post['id'] as $key => $value) {
+                $keranjang = $this->M_admin->select_where('keranjang', array('id' => $post['id'][$key]))->row_array();
+                $data = array(
+                    'id_transaksi' => $transaksi['id'],
+                    'id_produk' => $keranjang['id_produk'],
+                    'type' => $keranjang['type'],
+                    'qty' => $post['qty'][$key],
+                    'harga' => $post['harga'][$key],
+                );
+
+                $this->M_admin->insert_data('pesanan', $data);
+            }
+
+            $this->M_admin->delete_data('keranjang', array('id_user' => $id_user));
+
+            redirect(base_url('pesanan'));
+        } else {
+            redirect(base_url('login'));
         }
-
-        $this->M_admin->delete_data('keranjang', array('id_user' => $id_user));
-
-        redirect(base_url('pesanan'));
     }
 	public function show($id)
 	{
