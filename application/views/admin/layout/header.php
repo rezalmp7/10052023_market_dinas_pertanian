@@ -9,7 +9,7 @@
         <meta content="Market Dinas Pertanian" name="description">
         <meta content="sda" name="author">
         <!-- App favicon -->
-        <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/admin/assets/images/favicon.ico">
+        <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/images/logo_dinas_pertanian.png">
         <link href="<?php echo base_url(); ?>assets/admin/assets/libs/chartist/chartist.min.css" rel="stylesheet">
     
         <link href="<?php echo base_url(); ?>assets/admin/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css">

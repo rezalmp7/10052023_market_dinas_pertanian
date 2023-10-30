@@ -25,26 +25,67 @@ class Laporan extends CI_Controller {
 	}
 	public function index()
 	{
-        $data['transaksi'] = $this->M_admin->select_all('transaksi')->result_array();
+		$get = $this->input->get();
 
-        foreach ($data['transaksi'] as $key => $value) {
-            $user = $this->M_admin->select_where('user', array('id' => $value['id_user']))->row_array();
+		$data = [];
+		if(!isset($get['bulan'])) {
+			$data['bulan'] = 'all';
+			$data['tahun'] = 'all';
+			$data['transaksi'] = $this->M_admin->select_all('transaksi')->result_array();
 
-            $data['transaksi'][$key]['nama_user'] = $user['nama'];
-        }
+			foreach ($data['transaksi'] as $key => $value) {
+				$user = $this->M_admin->select_where('user', array('id' => $value['id_user']))->row_array();
+
+				$data['transaksi'][$key]['nama_user'] = $user['nama'];
+			}
+		} else {
+			$data['bulan'] = $get['bulan'];
+			$data['tahun'] = $get['tahun'];
+			$tanggal = $get['tahun'].'-'.$get['bulan'];
+			$data['transaksi'] = $this->db->select('*')
+				->from("transaksi")
+				->where('created_at BETWEEN "'. $tanggal.'-01 00:00:01'. '" and "'. $tanggal.'-31 23:59:59"')
+				->get()->result_array();
+
+			foreach ($data['transaksi'] as $key => $value) {
+				$user = $this->M_admin->select_where('user', array('id' => $value['id_user']))->row_array();
+
+				$data['transaksi'][$key]['nama_user'] = $user['nama'];
+			}
+		}
+        
 
         $this->load->view('admin/layout/header');
 		$this->load->view('admin/laporan', $data);
         $this->load->view('admin/layout/footer');
 	}
 	public function cetakExcel() {
-        $data['transaksi'] = $this->M_admin->select_where('transaksi', array('status' => 2))->result_array();
+		$post = $this->input->post();
+        if($post['bulan'] == 'all') {
+			$data['bulan'] = 'all';
+			$data['tahun'] = 'all';
+			$data['transaksi'] = $this->M_admin->select_all('transaksi')->result_array();
 
-        foreach ($data['transaksi'] as $key => $value) {
-            $user = $this->M_admin->select_where('user', array('id' => $value['id_user']))->row_array();
+			foreach ($data['transaksi'] as $key => $value) {
+				$user = $this->M_admin->select_where('user', array('id' => $value['id_user']))->row_array();
 
-            $data['transaksi'][$key]['nama_user'] = $user['nama'];
-        }
+				$data['transaksi'][$key]['nama_user'] = $user['nama'];
+			}
+		} else {
+			$data['bulan'] = $post['bulan'];
+			$data['tahun'] = $post['tahun'];
+			$tanggal = $post['tahun'].'-'.$post['bulan'];
+			$data['transaksi'] = $this->db->select('*')
+				->from("transaksi")
+				->where('created_at BETWEEN "'. $tanggal.'-01 00:00:01'. '" and "'. $tanggal.'-31 23:59:59"')
+				->get()->result_array();
+
+			foreach ($data['transaksi'] as $key => $value) {
+				$user = $this->M_admin->select_where('user', array('id' => $value['id_user']))->row_array();
+
+				$data['transaksi'][$key]['nama_user'] = $user['nama'];
+			}
+		}
 
 		$this->load->view('admin/excel', $data);
 	}
