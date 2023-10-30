@@ -2,6 +2,9 @@
         <!-- CONTENT -->
         <div class="col-12 m-0 p-0 content">
             <div class="row p-0 my-5 justify-content-center">
+                <div class="col-8 mb-5 p-0 clearfix">
+                    <a class="btn btn-sm btn-primary float-end" href="<?php echo base_url(); ?>pesanan/cetak/<?php echo $transaksi['id']; ?>">Cetak</a>
+                </div>
                 <div class="card p-4 col-8">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
