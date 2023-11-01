@@ -83,4 +83,41 @@ class Transaksi extends CI_Controller {
 
         redirect(base_url('admin/transaksi/show/'.$get['id']));
     }
+    public function cetak($id) {
+        $data['transaksi'] = $this->M_admin->select_where('transaksi', array('id' => $id))->row_array();
+        $data['user'] = $this->M_admin->select_where('user', array('id' => $data['transaksi']['id_user']))->row_array();
+
+        $keranjang_db = $this->M_admin->select_where('pesanan', array('id_transaksi' => $id))->result_array();
+
+        $pesanan_save;
+
+        foreach ($keranjang_db as $key => $value) {
+            if($value['type'] == 'bibit') {
+                $produk_db = $this->M_admin->select_where('bibit', array('id' => $value['id_produk']))->row_array();
+                $produk = array(
+                    'id' => $produk_db['id'],
+                    'nama' => 'Bibit '.$produk_db['produsen'],
+                    'harga' => $produk_db['harga']
+                );
+            } else {
+                $produk_db = $this->M_admin->select_where('pupuk', array('id' => $value['id_produk']))->row_array();
+                $produk = array(
+                    'id' => $produk_db['id'],
+                    'nama' => $produk_db['nama'],
+                    'harga' => $produk_db['harga']
+                );
+            }
+
+            $pesanan_save[] = array(
+                'id' => $value['id'],
+                'produk' => $produk,
+                'qty' => $value['qty'],
+                'harga' => $value['harga'],
+            );
+        }
+
+        $data['pesanan'] = $pesanan_save;
+        
+        $this->load->view('admin/transaksi_cetak', $data);
+    }
 }

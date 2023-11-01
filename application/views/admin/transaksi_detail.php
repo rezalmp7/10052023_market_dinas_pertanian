@@ -23,9 +23,11 @@
 
                         <div class="row">
                             <div class="col-12">
+                                <div class="col-12 clearfix">
+                                    <a target="_blank" href="<?php echo base_url(); ?>admin/transaksi/cetak/<?php echo $transaksi['id']; ?>" class="btn btn-sm btn-primary float-end my-3">Cetak</a>
+                                </div>
                                 <div class="card">
                                     <div class="card-body">
-        
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="invoice-title">
