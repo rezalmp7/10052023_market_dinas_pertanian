@@ -34,6 +34,9 @@
         <!-- Required datatable js -->
         <script src="<?php echo base_url(); ?>assets/admin/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/admin/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+
+        <!--Chart JS-->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         
         <script src="https://cdn.ckeditor.com/ckeditor5/37.0.1/classic/ckeditor.js"></script>
     </head>

@@ -12,6 +12,19 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+    
+                                    <h4 class="card-title mb-4">Total Transaksi Per Bulan</h4>
+
+                                    <!-- end row -->
+                                    <canvas id="myChart"></canvas>
+    
+                                </div>
+                            </div>
+                        </div> <!-- end col -->
                         <div class="card">
                             <div class="card-body">
                                 <div class="col-12 clearfix my-3">
@@ -98,4 +111,31 @@
 
                 <script>
                     $("#datatable").DataTable();
+
+                    let bulanChart = <?php echo $cart['bulan']; ?>;
+                    let valueChart = <?php echo $cart['value']; ?>;
+
+                    console.log(bulanChart, valueChart);
+
+                    const ctx = document.getElementById('myChart');
+
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: bulanChart,
+                            datasets: [{
+                                label: 'Total Transaksi',
+                                data: valueChart,
+                                borderWidth: 1,
+                                tension: 0.3
+                            }]
+                        },
+                        options: {
+                        scales: {
+                            y: {
+                            beginAtZero: true
+                            }
+                        }
+                        }
+                    });
                 </script>
