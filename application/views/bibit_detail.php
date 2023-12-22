@@ -28,7 +28,7 @@
                                 <div class="col-12 m-0 p-0 mt-5 pt-5">
                                     <div class="fs-1 fw-semibold"><span class="fw-normal fs-7">Rp</span> <?php echo number_format($bibit['harga']).' / '.$bibit['satuan']; ?></div>
                                     <div class="col-12 row m-0 p-0">
-                                        <a href="<?php echo base_url(); ?>keranjang/add?type=bibit&id=<?php echo $pupuk['id']; ?>" class="btn btn-success col-12 d-block mt-4">
+                                        <a href="<?php echo base_url(); ?>keranjang/add?type=bibit&id=<?php echo $bibit['id']; ?>" class="btn btn-success col-12 d-block mt-4">
                                             Simpan Ke Keranjang
                                         </a>
                                     </div>
