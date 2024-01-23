@@ -25,8 +25,8 @@ class Pesanan extends CI_Controller {
 	}
 	public function index()
 	{
-
-        $data['transaksi'] = $this->M_admin->select_all('transaksi')->result_array();
+		$user = $this->session->userdata('id');
+        $data['transaksi'] = $this->M_admin->select_where('transaksi', array('id_user' => $user))->result_array();
 
 		$this->load->view('layout/header');
 		$this->load->view('pesanan', $data);
@@ -70,6 +70,14 @@ class Pesanan extends CI_Controller {
                 );
 
                 $this->M_admin->insert_data('pesanan', $data);
+
+				if($keranjang['type'] == 'bibit') {
+					$produk = $this->M_admin->select_where('bibit', array('id' => $keranjang['id_produk']))->row();
+					$this->M_admin->update_data('bibit', array('jumlah' => ($produk->jumlah-$post['qty'][$key])), array('id' => $produk->id));
+				} else {
+					$produk = $this->M_admin->select_where('pupuk', array('id' => $keranjang['id_produk']))->row();
+					$this->M_admin->update_data('pupuk', array('jumlah' => ($produk->jumlah-$post['qty'][$key])), array('id' => $produk->id));
+				}
             }
 
             $this->M_admin->delete_data('keranjang', array('id_user' => $id_user));
